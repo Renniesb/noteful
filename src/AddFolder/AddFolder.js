@@ -1,61 +1,41 @@
-import React, { Component } from 'react'
-import NotefulForm from '../NotefulForm/NotefulForm'
-import ApiContext from '../ApiContext'
-import config from '../config'
+import React, { useState } from 'react';
 import './AddFolder.css'
+import {useHistory} from "react-router-dom"
+import config from '../config';
 
-export default class AddFolder extends Component {
-  static defaultProps = {
-    history: {
-      push: () => { }
-    },
-  }
-  static contextType = ApiContext;
+export default function AddFolder({setFolders}) {
+    const [name, setFolderName] = useState('');
+    const [error, setError] = useState(false);
+    let history = useHistory();
+    const handleAddFolder = (event) => {
+        event.preventDefault()
+        fetch(`${config.API_ENDPOINT}/folders`,  {
+            method: 'POST',
+            headers: {
+            'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({name})
+        })
+        .then(resp => resp.json())
+        .then(data => {
+            setFolders(data)
+            setError(false)
+            history.push(`/`)
+        })
+        .catch(function(error){
+            setError(true)
+            console.log(error)
+        })
 
-  handleSubmit = e => {
-    e.preventDefault()
-    const folder = {
-      name: e.target['folder-name'].value
+        
     }
-    fetch(`${config.API_ENDPOINT}/folders`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json'
-      },
-      body: JSON.stringify(folder),
-    })
-      .then(res => {
-        if (!res.ok)
-          return res.json().then(e => Promise.reject(e))
-        return res.json()
-      })
-      .then(folder => {
-        this.context.addFolder(folder)
-        this.props.history.push(`/folder/${folder.id}`)
-      })
-      .catch(error => {
-        console.error({ error })
-      })
-  }
-
-  render() {
-    return (
-      <section className='AddFolder'>
-        <h2>Create a folder</h2>
-        <NotefulForm onSubmit={this.handleSubmit}>
-          <div className='field'>
-            <label htmlFor='folder-name-input'>
-              Name
-            </label>
-            <input type='text' id='folder-name-input' name='folder-name' />
-          </div>
-          <div className='buttons'>
-            <button type='submit'>
-              Add folder
-            </button>
-          </div>
-        </NotefulForm>
-      </section>
-    )
-  }
+    
+  return (
+    <form onSubmit={ (event)=>{handleAddFolder(event)} }>
+        <h3 style={{color: "white", marginBottom: "5px"}}>Add a New Folder:</h3>
+        <input type="text" name="foldername" onChange={(event) => setFolderName(event.target.value)} /><br/>        
+        <input type="submit" value="Submit" />
+        {error && <h1>An Error has occured</h1>}
+    </form> 
+  )
 }
