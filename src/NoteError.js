@@ -20,7 +20,7 @@ export default class NoteError extends Component {
     render() {
         if (this.state.hasError) {
             return (
-                <h2>Could not display this tab.</h2>
+                <h2>Could not render this tab.</h2>
             );
         }
         return this.props.children
