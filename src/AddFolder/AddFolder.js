@@ -8,6 +8,12 @@ export default function AddFolder({setFolders}) {
     const [name, setFolderName] = useState('');
     const [error, setError] = useState(false);
     let history = useHistory();
+    const validateFolderName = () => {
+        const foldername = name.trim();
+        if (foldername.length === 0) {
+          return 'A folder name is required';
+        }
+    }
     const handleAddFolder = (event) => {
         event.preventDefault()
         fetch(`${config.API_ENDPOINT}/folders`,  {
@@ -35,7 +41,7 @@ export default function AddFolder({setFolders}) {
     <form onSubmit={ (event)=>{handleAddFolder(event)} }>
         <h3 style={{color: "white", marginBottom: "5px"}}>Add a New Folder:</h3>
         <input type="text" name="foldername" onChange={(event) => setFolderName(event.target.value)} /><br/>        
-        <input type="submit" value="Submit" />
+        <input disabled={validateFolderName()} type="submit" value="Submit" />
         {error && <h1>An Error has occured</h1>}
     </form> 
   )
