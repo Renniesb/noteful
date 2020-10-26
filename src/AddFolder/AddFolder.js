@@ -48,5 +48,5 @@ export default function AddFolder({setFolders}) {
 }
 
 AddFolder.propTypes = {
-    value: PropTypes.array.isRequired
+    setFolders: PropTypes.func.isRequired
 }
