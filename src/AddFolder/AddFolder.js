@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './AddFolder.css'
 import {useHistory} from "react-router-dom"
 import config from '../config';
+import PropTypes from 'prop-types';
 
 export default function AddFolder({setFolders}) {
     const [name, setFolderName] = useState('');
@@ -38,4 +39,8 @@ export default function AddFolder({setFolders}) {
         {error && <h1>An Error has occured</h1>}
     </form> 
   )
+}
+
+AddFolder.propTypes = {
+    value: PropTypes.array.isRequired
 }

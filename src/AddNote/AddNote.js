@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './AddNote.css'
 import {useHistory} from "react-router-dom"
 import config from '../config';
+import PropTypes from 'prop-types';
 
 export default function AddNote({folders, setNotes}) {
     const [name, setNoteName] = useState('');
@@ -66,4 +67,7 @@ export default function AddNote({folders, setNotes}) {
         {error && <h1>An Error has occured</h1>}
     </form> 
   )
+}
+AddNote.propTypes = {
+    value: PropTypes.func.isRequired
 }
