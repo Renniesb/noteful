@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
 import './AddNote.css'
 import {useHistory} from "react-router-dom"
 import config from '../config';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 export default function AddNote({folders, setNotes}) {
     const [name, setNoteName] = useState('');
@@ -42,12 +42,7 @@ export default function AddNote({folders, setNotes}) {
     }
     
   return (
-    // "id": "cbc787a0-ffaf-11e8-8eb2-f2801f1b9fd1",
-    // "name": "Dogs",
-    // "modified": "2019-01-03T00:00:00.000Z",
-    // "folderId": "b0715efe-ffaf-11e8-8eb2-f2801f1b9fd1",
-    // "content": faker.lorem.paragraphs()
-      //capture the name, content and folder for a new Note
+    
     <form onSubmit={ (event)=>{handleAddNotes(event)} }>
         <h3 style={{color: "white", marginBottom: "5px"}}>Add a New Note:</h3>
         <h3>Name:</h3>
@@ -69,5 +64,6 @@ export default function AddNote({folders, setNotes}) {
   )
 }
 AddNote.propTypes = {
-    value: PropTypes.func.isRequired
+    setNotes: PropTypes.func.isRequired,
+    folders: PropTypes.array.isRequired
 }
