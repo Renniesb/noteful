@@ -55,7 +55,7 @@ class App extends Component {
     renderNavRoutes() {
         return (
             <>
-                {['/', '/folder/:folderId'].map(path => (
+                {['/', '/folder/:folderid'].map(path => (
                     <Route
                         exact
                         key={path}
@@ -74,7 +74,7 @@ class App extends Component {
         
         return (
             <>
-                {['/', '/folder/:folderId'].map(path => (
+                {['/', '/folder/:folderid'].map(path => (
                     <Route
                         exact
                         key={path}

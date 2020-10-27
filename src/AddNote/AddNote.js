@@ -8,7 +8,7 @@ export default function AddNote({folders, setNotes}) {
     const [name, setNoteName] = useState('');
     const [content, setNoteContent] = useState('');
     const [error, setError] = useState(false);
-    const [folderId, setFolder] = useState(folders[0].id)
+    const [folderid, setFolder] = useState(folders[0].id)
     let history = useHistory();
     const validateNoteName = () => {
         const notename = name.trim();
@@ -20,12 +20,14 @@ export default function AddNote({folders, setNotes}) {
         event.preventDefault()
         let today = new Date(),
             modified = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate()
+
+            console.log('modified', modified)
         fetch(`${config.API_ENDPOINT}/notes`,  {
             method: 'POST',
             headers: {
             'Content-Type': 'application/json',
             },
-            body: JSON.stringify({name,modified,folderId,content})
+            body: JSON.stringify({name,modified,folderid: folderid,content})
         })
         .then(resp => resp.json())
         .then(data => {
@@ -50,7 +52,7 @@ export default function AddNote({folders, setNotes}) {
         <h3>Content:</h3>        
         <textarea rows="10" cols="25" name="notename" onChange={(event) => setNoteContent(event.target.value)} /><br/>        
         <h3>Folder:</h3>
-        <select placeholder="Select Folder" value={folderId} onChange={(event)=>{setFolder(event.target.value)}}>
+        <select placeholder="Select Folder" value={folderid} onChange={(event)=>{setFolder(event.target.value)}}>
             {
                 folders.map((folder)=>{
                     return <option key={folder.id} value={folder.id}>{folder.name}</option> 

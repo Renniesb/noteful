@@ -14,7 +14,7 @@ describe(`NoteListMain component`, () => {
     const props = {
       match: {
         params: {
-          folderId: 'THIS_FOLDER_ID'
+          folderid: 'THIS_FOLDER_ID'
         }
       }
     }
